@@ -1,0 +1,9 @@
+pipeline{
+    stages{
+        stage("code check-out"){
+            steps{
+                git branch: 'main', credentialsId: 'hudson', url: 'https://github.com/HarrYx384/logstash.git'
+            }
+        }
+    }
+}
