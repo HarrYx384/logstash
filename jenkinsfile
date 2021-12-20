@@ -9,20 +9,20 @@ pipeline {
         stage("install packer on slave"){
             steps{
                 script {
-                    sh```#!/bin/bash
+                    sh'''#!/bin/bash
                        sudo yum install -y yum-utils
                        sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
                        sudo yum -y install packer
-                     ```
+                     '''
                 }
             }
         }
         stage("now trigger packer"){
             steps{
                 script{
-                    sh```#!/bin/bash
+                    sh'''#!/bin/bash
                      packer build logstash/packer.json
-                    ```
+                    '''
                 }
             }
         }
