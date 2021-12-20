@@ -1,0 +1,82 @@
+---
+- name: Create Logstash filters for prod.
+  copy:
+    src: "prod/{{ item }}"
+    dest: "/etc/logstash/conf.d/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - filebeat-logstash-es.conf
+  notify: restart logstash
+  when: ansible_hostname == "elk-logs-logstash-production"
+  ignore_errors: yes
+
+- name: Create Logstash filters for callbreak.
+  copy:
+    src: "callbreak/{{ item }}"
+    dest: "/etc/logstash/conf.d/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - filebeat-logstash-es.conf
+  notify: restart logstash
+  when: ansible_hostname == "elk-logs-logstash-callbreak-*"
+  ignore_errors: yes
+
+- name: Create Logstash filters for card-games.
+  copy:
+    src: "cardgames/{{ item }}"
+    dest: "/etc/logstash/conf.d/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - es-dashboards-output-pipeline.conf
+    - es-logs-output-pipeline.conf
+    - filebeat-logstash-es.conf
+  notify: restart logstash
+  when: ansible_hostname == "elk-logstash-card-games-*"
+  ignore_errors: yes
+
+- name: Create Logstash filters for dashboard.
+  copy:
+    src: "dashborad/{{ item }}"
+    dest: "/etc/logstash/conf.d/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - es-dashboards-output-pipeline.conf
+    - es-logs-output-pipeline.conf
+    - filebeat-logstash-es.conf
+  notify: restart logstash
+  when: ansible_hostname == "elk-logstash-dashboards-*"
+  ignore_errors: yes
+
+- name: Create Logstash filters for secondary internal.
+  copy:
+    src: "secondary/{{ item }}"
+    dest: "/etc/logstash/conf.d/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - filebeat-logstash-es.conf
+  notify: restart logstash
+  when: ansible_hostname == "elk-logs-logstash-*"
+  ignore_errors: yes
+
+- name: Create Logstash filters for sfs.
+  copy:
+    src: "sfs/{{ item }}"
+    dest: "/etc/logstash/conf.d/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - filebeat-logstash-es.conf
+  notify: restart logstash
+  when: ansible_hostname == "elk-logs-logstash-sfs-*"
+  ignore_errors: yes

@@ -1,0 +1,42 @@
+{ 
+    "builders": [
+
+   {
+       "type": "amazon-ebs",
+       "region": "ap-south-1",
+       "source_ami": "ami-052cef05d01020f1d",
+       "instance_type": "t2.micro",
+       "ssh_username": "ec2-user",
+       "ami_name": "logstash1"
+   }
+   
+],
+"provisioners": [
+    {
+        "type": "shell",
+        "inline": [
+          "sleep 30",
+          "sudo yum update -y",
+          "sudo amazon-linux-extras install ansible2 -y",
+          "sudo yum install git -y",
+          "sudo git clone git@bitbucket.org:mpl-gaming/ansible.git"
+        ]
+      },
+   {
+       "type": "ansible-local",
+       "playbook_file": "ansible/playbooks/logstashinstall.yml",
+       "role_paths": [
+        "ansible/roles/logstash_config"
+       ]
+
+   },
+   {
+        "type": "shell",
+        "inline": [
+          "sleep 30",
+          "sudo rm -rvf ansible"
+        ]
+      }
+
+       ]
+}

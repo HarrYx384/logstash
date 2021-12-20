@@ -1,0 +1,7 @@
+- name: use motd role playbook
+  hosts: all
+  gather_facts: true
+  become: true
+
+  roles:
+    - role: logstash_config
