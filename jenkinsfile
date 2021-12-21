@@ -8,6 +8,9 @@ pipeline {
         }
         stage("now trigger packer"){
             steps{
+                sh 'export PACKER_LOG=1'
+                sh 'export PACKER_LOG_PATH=$WORKSPACE/packer.log'
+                sh 'echo "packer log path:" $PACKER_LOG_PATH'
                 sh 'packer build packer.json'
             }
         }
