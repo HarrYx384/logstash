@@ -8,11 +8,7 @@ pipeline {
         }
         stage("now trigger packer"){
             steps{
-                script{
-                    sh'''#!/bin/bash
-                     packer build logstash/packer.json
-                    '''
-                }
+                sh 'packer build ./packer.json
             }
         }
     }
