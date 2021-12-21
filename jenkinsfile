@@ -8,7 +8,8 @@ pipeline {
         }
         stage("now trigger packer"){
             steps{
-                sh 'packer build logstash/packer.json'
+                sh 'mkdir now'
+                sh 'packer build /var/lib/jenkins/workspace/logstash/packer.json'
             }
         }
     }
