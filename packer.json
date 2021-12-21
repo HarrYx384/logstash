@@ -7,7 +7,7 @@
        "source_ami": "ami-052cef05d01020f1d",
        "instance_type": "t2.micro",
        "ssh_username": "ec2-user",
-       "ami_name": "logstash6"
+       "ami_name": "logstash {{timestamp}}"
    }
    
 ],
