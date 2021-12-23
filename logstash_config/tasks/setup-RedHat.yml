@@ -3,14 +3,35 @@
   rpm_key:
     key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
     state: present
+  tags:
+  -  sfs
+  -  internal
+  -  dashboards
+  -  card-games
+  -  call-break
+  -  production
 
 - name: Add Logstash repository.
   template:
     src: logstash.repo.j2
     dest: /etc/yum.repos.d/logstash.repo
     mode: 0644
+  tags:
+  -  sfs
+  -  internal
+  -  dashboards
+  -  card-games
+  -  call-break
+  -  production
 
 - name: Install Logstash.
   package:
     name: '{{ logstash_package }}'
     state: present
+  tags:
+  -  sfs
+  -  internal
+  -  dashboards
+  -  card-games
+  -  call-break
+  -  production

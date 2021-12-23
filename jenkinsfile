@@ -1,5 +1,10 @@
 pipeline {
     agent any
+      parameters {
+        string(name: 'Enter-Tag', description: 'Enter Tag to create specific AMI (EX: for dashboard enter "dashboard" and others sfs, internal, dashboards, card-games, call-break, production).')
+
+        string(name: 'REGIONS', defaultValue: 'ap-south-1', description: 'Enter Regions name (EX: ap-south-1)')
+    }
     stages {
         stage ("code checkout"){
             steps{
@@ -8,10 +13,13 @@ pipeline {
         }
         stage("now trigger packer"){
             steps{
-                sh 'export PACKER_LOG=1'
-                sh 'export PACKER_LOG_PATH=$WORKSPACE/packer.log'
-                sh 'echo "packer log path:" $PACKER_LOG_PATH'
-                sh 'packer build packer.json'
+             script{
+                sh """/usr/bin/packer build \
+                -var "--tag=\"${Enter-Tag}\"" \
+                -var "regions=\"${REGIONS}\"" \
+                prod_packer.json
+                """  
+              }
             }
         }
     }

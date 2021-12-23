@@ -9,8 +9,7 @@
   with_items:
     - filebeat-logstash-es.conf
   notify: restart logstash
-  when: ansible_hostname == "elk-logs-logstash-production"
-  ignore_errors: yes
+  tags: "production"
 
 - name: Create Logstash filters for callbreak.
   copy:
@@ -22,8 +21,7 @@
   with_items:
     - filebeat-logstash-es.conf
   notify: restart logstash
-  when: ansible_hostname == "elk-logs-logstash-callbreak-*"
-  ignore_errors: yes
+  tags: "callbreak"
 
 - name: Create Logstash filters for card-games.
   copy:
@@ -37,8 +35,7 @@
     - es-logs-output-pipeline.conf
     - filebeat-logstash-es.conf
   notify: restart logstash
-  when: ansible_hostname == "elk-logstash-card-games-*"
-  ignore_errors: yes
+  tags: "card-games"
 
 - name: Create Logstash filters for dashboard.
   copy:
@@ -52,8 +49,7 @@
     - es-logs-output-pipeline.conf
     - filebeat-logstash-es.conf
   notify: restart logstash
-  when: ansible_hostname == "elk-logstash-dashboards-*"
-  ignore_errors: yes
+  tags: "dashboards"
 
 - name: Create Logstash filters for secondary internal.
   copy:
@@ -65,8 +61,7 @@
   with_items:
     - filebeat-logstash-es.conf
   notify: restart logstash
-  when: ansible_hostname == "elk-logs-logstash-*"
-  ignore_errors: yes
+  tags: "internal"
 
 - name: Create Logstash filters for sfs.
   copy:
@@ -78,5 +73,5 @@
   with_items:
     - filebeat-logstash-es.conf
   notify: restart logstash
-  when: ansible_hostname == "elk-logs-logstash-sfs-*"
-  ignore_errors: yes
+  tags: "sfs"
+
