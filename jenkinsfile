@@ -1,10 +1,7 @@
+properties([parameters([string(defaultValue: 'call-break', description: 'enter tag name exa. sfs, internal, card-games, call-break, internal, production', name: 'Enter-tag')])])
+properties([parameters([string(defaultValue: 'ap-south-1', description: 'Enter region exa. ap-south-1', name: 'Region')])])
 pipeline {
     agent any
-      parameters {
-        string(name: 'Enter-Tag', description: 'Enter Tag to create specific AMI (EX: for dashboard enter "dashboard" and others sfs, internal, dashboards, card-games, call-break, production).')
-
-        string(name: 'REGIONS', defaultValue: 'ap-south-1', description: 'Enter Regions name (EX: ap-south-1)')
-    }
     stages {
         stage ("code checkout"){
             steps{
